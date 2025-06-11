@@ -6,19 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WaterPokemon extends Pokemon implements WaterAttacks {
-    private final String TYPE = "water";
+    private static final String TYPE = "water";
     private final List<String> attacks = Arrays.asList("surf", "hydropump", "hydrocanon", "raindance");
 
     public WaterPokemon(String name, int level, int hp, String food, String sound) {
-        super(name, level, hp, food, sound);
+        super(name, level, hp, food, sound, TYPE);
     }
 
-    @Override
-    public String getType() {
-        return this.TYPE;
-    }
-
-    List<String> getAttacks() {
+    public List<String> getAttacks() {
         return this.attacks;
     }
 
@@ -26,6 +21,7 @@ public class WaterPokemon extends Pokemon implements WaterAttacks {
     public void surf(Pokemon name, Pokemon enemy) {
         int baseDamage = 8;
         String skillName = "surf";
+
         skillAttack(skillName, baseDamage, enemy, name);
     }
 
@@ -33,6 +29,7 @@ public class WaterPokemon extends Pokemon implements WaterAttacks {
     public void hydroPump(Pokemon name, Pokemon enemy) {
         int baseDamage = 7;
         String skillName = "hydropump";
+
         skillAttack(skillName, baseDamage, enemy, name);
     }
 
@@ -40,6 +37,7 @@ public class WaterPokemon extends Pokemon implements WaterAttacks {
     public void hydroCanon(Pokemon name, Pokemon enemy) {
         int baseDamage = 6;
         String skillName = "hydrocanon";
+
         skillAttack(skillName, baseDamage, enemy, name);
     }
 
@@ -47,37 +45,37 @@ public class WaterPokemon extends Pokemon implements WaterAttacks {
     public void rainDance(Pokemon name, Pokemon enemy) {
         int baseDamage = 5;
         String skillName = "raindance";
-        if (enemy.getType().equals("electric")) {
-            System.out.println("Raindance heeft geen effect");
+
+        if (enemy instanceof ElectricPokemon) {
+            System.out.println("raindance has no effect on " + enemy.getName());
+            System.out.println(enemy.getName() + " has " + enemy.getHp() + " hp left");
         }
-        else{
+        else if (enemy instanceof GrassPokemon) {
+            System.out.println("raindance boosts " + enemy.getName() + " 's hp with " + baseDamage + " points");
+            enemy.setHp(enemy.getHp() + baseDamage);
+            System.out.println(enemy.getName() + " has " + enemy.getHp() + " hp left");
+        }
+        else {
             skillAttack(skillName, baseDamage, enemy, name);
         }
     }
 
-    private int damageModifier(int damage, Pokemon enemy) {
+    @Override
+    int damageModifier(int baseDamage, Pokemon enemy) {
         String type = enemy.getType();
         switch (type) {
             case "water" -> {
-                return damage;
+                return baseDamage;
             }
             case "grass" -> {
-                return damage + 5;
+                return baseDamage + 5;
             }
             case "electric" -> {
-                return damage + 8;
+                return baseDamage + 8;
             }
             default -> {
-                return damage + 10;
+                return baseDamage + 10;
             }
         }
-    }
-
-    private void skillAttack(String skillName, int baseDamage, Pokemon enemy, Pokemon name) {
-        int totalDamage = damageModifier(baseDamage, enemy);
-        System.out.println(name.getName() + " attacks " + enemy.getName() + " with " + skillName + ".");
-        System.out.println(enemy.getName() + " loses " + totalDamage + " hp");
-        enemy.setHp(enemy.getHp() - totalDamage);
-        System.out.println(enemy.getName() + " has " + enemy.getHp() + " hp left.");
     }
 }

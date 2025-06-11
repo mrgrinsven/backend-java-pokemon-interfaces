@@ -1,5 +1,3 @@
-package engine;
-
 import players.PokemonGymOwner;
 import players.PokemonTrainer;
 import pokemons.Pokemon;

@@ -1,4 +1,3 @@
-import engine.PokemonGymImpl;
 import players.PokemonTrainer;
 import pokemons.*;
 

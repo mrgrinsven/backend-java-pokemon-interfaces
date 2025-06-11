@@ -1,5 +1,3 @@
-package engine;
-
 import players.PokemonGymOwner;
 import players.PokemonTrainer;
 import pokemons.*;
@@ -158,9 +156,16 @@ public class PokemonGymImpl implements PokemonGym {
 
         String choosenAttack = attack.toLowerCase(Locale.ROOT);
 
+        // example of instanceof with if statement instead of a switch statement
+//        if(pokemon instanceof FirePokemon) {
+//            ((FirePokemon)pokemon).inferno(pokemon, gymPokemon);
+//        }
+
         switch (pokemon.getType()) {
             case "fire" -> {
-                fire = new FirePokemon(pokemon.getName(), pokemon.getLevel(), pokemon.getHp(), pokemon.getFood(), pokemon.getSound());
+                // Making a new object uses more memory than to cast the object, Casting uses less memory  and makes a cleaner code
+//                fire = new FirePokemon(pokemon.getName(), pokemon.getLevel(), pokemon.getHp(), pokemon.getFood(), pokemon.getSound());
+                fire = (FirePokemon) pokemon;
                 switch (choosenAttack) {
                     case "inferno" -> fire.inferno(pokemon, gymPokemon);
                     case "pyroball" -> fire.pyroBall(pokemon, gymPokemon);

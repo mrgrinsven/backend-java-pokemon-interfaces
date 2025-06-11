@@ -1,4 +1,10 @@
-import java.util.List;
+package engine;
+
+import players.PokemonGymOwner;
+import players.PokemonTrainer;
+import pokemons.*;
+
+import java.util.*;
 
 // Los in deze klasse alle foutmeldingen op door (abstracte) klassen met variabelen en methodes te maken en een interface met methodes (en soms een import).
 public class PokemonGymImpl implements PokemonGym {

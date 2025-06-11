@@ -1,3 +1,7 @@
+import engine.PokemonGymImpl;
+import players.PokemonTrainer;
+import pokemons.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;

@@ -1,4 +1,8 @@
-import java.util.List;
+import players.PokemonGymOwner;
+import players.PokemonTrainer;
+import pokemons.*;
+
+import java.util.*;
 
 // Los in deze klasse alle foutmeldingen op door (abstracte) klassen met variabelen en methodes te maken en een interface met methodes (en soms een import).
 public class PokemonGymImpl implements PokemonGym {
@@ -152,9 +156,16 @@ public class PokemonGymImpl implements PokemonGym {
 
         String choosenAttack = attack.toLowerCase(Locale.ROOT);
 
+        // example of instanceof with if statement instead of a switch statement
+//        if(pokemon instanceof FirePokemon) {
+//            ((FirePokemon)pokemon).inferno(pokemon, gymPokemon);
+//        }
+
         switch (pokemon.getType()) {
             case "fire" -> {
-                fire = new FirePokemon(pokemon.getName(), pokemon.getLevel(), pokemon.getHp(), pokemon.getFood(), pokemon.getSound());
+                // Making a new object uses more memory than to cast the object, Casting uses less memory  and makes a cleaner code
+//                fire = new FirePokemon(pokemon.getName(), pokemon.getLevel(), pokemon.getHp(), pokemon.getFood(), pokemon.getSound());
+                fire = (FirePokemon) pokemon;
                 switch (choosenAttack) {
                     case "inferno" -> fire.inferno(pokemon, gymPokemon);
                     case "pyroball" -> fire.pyroBall(pokemon, gymPokemon);
@@ -247,13 +258,16 @@ public class PokemonGymImpl implements PokemonGym {
     public void attackOrChange(Pokemon pokemon, Pokemon gymPokemon, PokemonTrainer trainer, PokemonGymOwner gym){
         Scanner speler_A = new Scanner(System.in);
 
-        System.out.println("Do you want to attack or change your pokemon?");
-        System.out.println("Type a for attack or c for change");
+        System.out.println("Do you want to attack, heal or change your pokemon?");
+        System.out.println("Type a for attack, h to heal or c for change");
         String choice = speler_A.nextLine();
 
         if (choice.equalsIgnoreCase("a")) {
             String attack = chooseAttackPlayer(pokemon);
             performAttackPlayer(pokemon, gymPokemon, attack);
+        } else if (choice.equalsIgnoreCase("h")) {
+            String food = throwFood(pokemon, trainer);
+            pokemon.eatFood(food);
         } else {
             pokemon = choosePokemon(trainer);
             attackOrChange(pokemon, gymPokemon, trainer, gym);
@@ -261,4 +275,12 @@ public class PokemonGymImpl implements PokemonGym {
         }
     }
 
+    public String throwFood(Pokemon pokemon, PokemonTrainer pokemonTrainer) {
+        Scanner foodScanner  = new Scanner(System.in);
+        System.out.println("Please select the food you want to throw to " + pokemon);
+        System.out.println("firenougats, pokeflakes, pokeleafs, pokebrocks, pokeflakes, everything");
+        String food = foodScanner.nextLine();
+        System.out.println(pokemonTrainer.getName() + " throws " + food);
+        return food;
+    }
 }

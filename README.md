@@ -14,7 +14,7 @@ Naast hun type, hebben Pokémon natuurlijk bepaalde eigenschappen met elkaar gem
 **super** klasse. Ook gaan we kijken naar overloading, polymorfisme en een interface.
 
 
-![Pokemon!](./assets/pokemon.JPG)
+![pokemons.Pokemon!](./assets/pokemon.JPG)
 
 
 ### Afwijking van werkwijze

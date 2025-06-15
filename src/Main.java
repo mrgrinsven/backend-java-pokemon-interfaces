@@ -1,3 +1,6 @@
+import players.PokemonTrainer;
+import pokemons.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -37,8 +40,5 @@ public class Main {
         if (speler_A.nextLine().equals("yes")) {
             pokemonGym.enteredTheGym(player1);
         }
-
     }
-
-
 }

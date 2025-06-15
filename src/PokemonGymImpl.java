@@ -258,13 +258,16 @@ public class PokemonGymImpl implements PokemonGym {
     public void attackOrChange(Pokemon pokemon, Pokemon gymPokemon, PokemonTrainer trainer, PokemonGymOwner gym){
         Scanner speler_A = new Scanner(System.in);
 
-        System.out.println("Do you want to attack or change your pokemon?");
-        System.out.println("Type a for attack or c for change");
+        System.out.println("Do you want to attack, heal or change your pokemon?");
+        System.out.println("Type a for attack, h to heal or c for change");
         String choice = speler_A.nextLine();
 
         if (choice.equalsIgnoreCase("a")) {
             String attack = chooseAttackPlayer(pokemon);
             performAttackPlayer(pokemon, gymPokemon, attack);
+        } else if (choice.equalsIgnoreCase("h")) {
+            String food = throwFood(pokemon, trainer);
+            pokemon.eatFood(food);
         } else {
             pokemon = choosePokemon(trainer);
             attackOrChange(pokemon, gymPokemon, trainer, gym);
@@ -272,4 +275,12 @@ public class PokemonGymImpl implements PokemonGym {
         }
     }
 
+    public String throwFood(Pokemon pokemon, PokemonTrainer pokemonTrainer) {
+        Scanner foodScanner  = new Scanner(System.in);
+        System.out.println("Please select the food you want to throw to " + pokemon);
+        System.out.println("firenougats, pokeflakes, pokeleafs, pokebrocks, pokeflakes, everything");
+        String food = foodScanner.nextLine();
+        System.out.println(pokemonTrainer.getName() + " throws " + food);
+        return food;
+    }
 }

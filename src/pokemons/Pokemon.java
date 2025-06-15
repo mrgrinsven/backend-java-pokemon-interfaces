@@ -44,7 +44,7 @@ public abstract class Pokemon {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     abstract int damageModifier(int baseDamage, Pokemon enemy);
@@ -55,6 +55,21 @@ public abstract class Pokemon {
         System.out.println(enemy.getName() + " loses " + totalDamage + " hp");
         enemy.setHp(enemy.getHp() - totalDamage);
         System.out.println(enemy.getName() + " has " + enemy.getHp() + " hp left");
+    }
+
+    public void eatFood(String food) {
+        System.out.println("selected food is " + food);
+        int foodBoost = 15;
+        if (food.equalsIgnoreCase(this.food)) {
+            System.out.println(this.name + " is pleased with the food and sais \"" + this.sound + "\"");
+            System.out.println(this.name + " boosts health for " + foodBoost + " hp");
+            this.setHp(this.hp + foodBoost);
+            System.out.println(this.name + " has " + this.hp + " hp after eating");
+        }
+
+        else {
+            System.out.println(this.name + " does not like this food, it has no effect");
+        }
     }
 
     @Override
